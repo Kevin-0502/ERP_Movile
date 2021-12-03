@@ -19,8 +19,8 @@ function ClientNavigationController() {
           backgroundColor: '#394263',
         },
       }}>
-        <Stack.Screen name="Lista de Clientes" component={ClientsScreen} />
-        <Stack.Screen name="Detalles del cliente" component={DetailClientsScreen} />
+        <Stack.Screen name="Lista de Clientes" component={ClientsScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="Detalles del cliente" component={DetailClientsScreen} options={{headerShown:false}}/>
       </Stack.Navigator>
   );
 }

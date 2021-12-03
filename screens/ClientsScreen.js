@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { ScrollView,StyleSheet, Text, View, Button } from 'react-native';
 import { Avatar, ListItem, Icon } from 'react-native-elements';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 //array to show in screen(vector para mostrarlo en pantalla)
 const client = [
@@ -27,10 +28,10 @@ function ClientsScreen({navigation}){
             {
               client.map((l, i) => (
                 <ListItem key={i} bottomDivider onPress={() => navigation.navigate("Detalles del cliente")}>
-                  <Avatar source={require('../assets/Logo_HYD.jpg')} rounded  size="large"/>
+                  <Avatar source={require('../assets/Logo_HYD.jpg')} rounded size="large" />
                   <ListItem.Content>
-                    <ListItem.Title>{l.name}</ListItem.Title>
-                    <ListItem.Subtitle>{l.companie}</ListItem.Subtitle>
+                    <ListItem.Title style={styles.txtItem}>{l.name}</ListItem.Title>
+                    <ListItem.Subtitle style={styles.txtsubItem}>{l.companie}</ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>
               ))
@@ -49,6 +50,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       height: '100%',
+    },
+    txtItem: {
+      fontSize: RFPercentage(3.5),
+    },
+    txtsubItem: {
+      fontSize: RFPercentage(2),
     },
   });
 

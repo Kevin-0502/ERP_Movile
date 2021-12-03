@@ -27,7 +27,7 @@ function CompaniesScreen({ navigation }){
             <ScrollView style={styles.horizontal_scroll_container} >
               {
                 companiesList.map((l, i) => (
-                  <View style={styles.itemView}>
+                  <View key={i} style={styles.itemView}>
                     <Text style={styles.items} >{l.companie}</Text>
                     <TouchableOpacity onPress={()=> {navigation.navigate("Ingresos y Egresos",{itemId: i, otherParam: l.companie,});}}>
                       <Image source={require('../assets/Logo_HYD.jpg')} />
