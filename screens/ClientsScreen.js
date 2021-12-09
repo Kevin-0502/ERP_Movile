@@ -1,8 +1,8 @@
 //import elements(Importación de elementos básicos de react-native)
 import * as React from 'react';
 import { ScrollView,StyleSheet, Text, View, Button } from 'react-native';
-import { Avatar, ListItem, Icon } from 'react-native-elements';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import { Avatar, ListItem } from 'react-native-elements';
+import { RFPercentage } from 'react-native-responsive-fontsize';//library to get responsive fonts(Librería para tener un tamaño responsivo en el texto)
 
 //array to show in screen(vector para mostrarlo en pantalla)
 const client = [

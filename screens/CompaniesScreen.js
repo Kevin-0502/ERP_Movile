@@ -29,7 +29,7 @@ function CompaniesScreen({ navigation }){
                 companiesList.map((l, i) => (
                   <View key={i} style={styles.itemView}>
                     <Text style={styles.items} >{l.companie}</Text>
-                    <TouchableOpacity onPress={()=> {navigation.navigate("Ingresos y Egresos",{itemId: i, otherParam: l.companie,});}}>
+                    <TouchableOpacity onPress={()=> {navigation.navigate("Ingresos y Egresos",{itemId: i, companie: l.companie,});}}>
                       <Image source={require('../assets/Logo_HYD.jpg')} />
                     </TouchableOpacity>
                   </View>
