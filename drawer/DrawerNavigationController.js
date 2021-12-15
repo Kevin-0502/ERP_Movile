@@ -21,9 +21,10 @@ function DrawerNavigationController() {
             screenOptions={{
               headerTintColor:'#fff',
               headerStyle:{
-                backgroundColor: '#394263',
+                backgroundColor: '#9FC73A',
               },
-              drawerActiveTintColor: '#fff',
+              drawerActiveTintColor: '#F19022',
+              drawerInactiveTintColor:'#fff',
               drawerLabelStyle: {
               marginLeft: -25,
               fontSize: 15,

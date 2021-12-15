@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
      itemView:{
       alignItems: 'center',
       margin: 5,
-      backgroundColor:'lightblue',
-      padding: 30,
+      backgroundColor:'#fff',
+      padding: 10,
       borderRadius: 15,
     },
     items:{
