@@ -33,10 +33,10 @@ function LoginScreen({navigation}){
                 <View style={{width:'80%',}}>
                   <TextInput style={styles.inputTxt} placeholder='example@gmail.com' onChangeText={user => setUser(user)} defaultValue={user} />
                 </View>
-                <View style={{flexDirection: 'row',marginTop:40,width:'80%',marginBottom:'40%',backgroundColor:'#72789A', borderRadius:10,}}>
+                <View style={styles.passwordview}>
                   <TouchableOpacity onPress={() =>{
                     if (showhide) {setShowhide(false)}else{setShowhide(true)}
-                    } } style={{backgroundColor:'#72789A',padding:5,borderRadius:10,}}><Ionicons name="eye" color={'black'} size={20} />
+                    } } style={{backgroundColor:'#72789A',padding:5,borderRadius:100,}}><Ionicons name="eye" color={'black'} size={25} />
                   </TouchableOpacity>
                   <TextInput style={styles.inputTxt2} placeholder='password' onChangeText={password => setPassword(password)} defaultValue={password} secureTextEntry={showhide}/>
                 </View>  
@@ -80,18 +80,19 @@ const styles = StyleSheet.create({
       marginTop:'40%',
       alignItems: 'center',
       justifyContent: 'center',
+      paddingBottom:'30%',
     },
     txt:{
       color:'#9FC73A',
       fontSize:RFPercentage(2.1),
       marginTop:15,
-      marginBottom:40,
+      marginBottom:30,
     },
     inputTxt: {
       padding: 5,
-      marginTop: 40,
+      marginTop: '30%',
       width:'100%',
-      height:30,
+      height:'18%',
       backgroundColor:'#72789A',
       borderRadius:10,
       textAlign:'center',
@@ -100,11 +101,18 @@ const styles = StyleSheet.create({
     inputTxt2: {
       padding: 5,
       width:'90%',
-      height:30,
       textAlign:'center',
       marginRight:5,
       fontSize:RFPercentage(2.5),
     },
+    passwordview:{
+      flexDirection: 'row',
+      width:'80%',
+      marginBottom:'20%',
+      backgroundColor:'#72789A', 
+      borderRadius:10,
+      height:'8%',
+  },
   });
 
 

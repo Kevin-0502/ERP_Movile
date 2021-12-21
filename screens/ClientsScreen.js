@@ -23,11 +23,14 @@ const client = [
 //View that has a List showing all data from array "client"(Vista que contiene una lista donde se muestra la info del vector "client")
 function ClientsScreen({navigation}){
     return(
+    <View>
+
+    
         <ScrollView style={styles.scroll_container}>
             <View>
             {
               client.map((l, i) => (
-                <ListItem key={i} bottomDivider onPress={() => navigation.navigate("Detalles del cliente")}>
+                <ListItem key={i} bottomDivider onPress={() => navigation.navigate("Detalles del cliente",{itemId: i, client: l.name, companie: l.companie,})}>
                   <Avatar source={require('../assets/Logo_HYD.jpg')} rounded size="large" />
                   <ListItem.Content>
                     <ListItem.Title style={styles.txtItem}>{l.name}</ListItem.Title>
@@ -38,6 +41,7 @@ function ClientsScreen({navigation}){
             }
             </View>
         </ScrollView>
+        </View>
     );
 }
 

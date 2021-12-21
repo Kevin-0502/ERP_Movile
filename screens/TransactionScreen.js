@@ -12,13 +12,13 @@ import { RFPercentage } from 'react-native-responsive-fontsize';//library to get
 function TransactionScreen({route, navigation}){
   const { itemId } = route.params;
   const { companie } = route.params;
-  //params form other screen companie(parametros que vienen de la pantalla companie)
+  //params from screen companie(parametros que vienen de la pantalla companie)
   const [ revenue, setRevenue ] = useState("");//first picker revenue(primer selector de ingresos)
   const [ revenuetype, setRevenuetype ] = useState("");//second picker revenue(segundo selector de ingresos)
   const [ expenses, setExpenses ] = useState("");//first picker expenses(primer selector de egresos)
   const [ expensestype, setExpensestype ] = useState("");//second picker expenses(segundo selector de egresos)
   const [ shouldShow, setShouldShow] = useState(false);// variable to show second picker(variable para mostrar segundo selector)
-  const [revenuedate, setRevenueDate] = useState(new Date())//variable for date revenue(variable para la fecha de ingreso)
+  const [revenuedate, setRevenueDate] = useState(new Date())//variable for date revenue *date format: yyyy/mm/dd*(variable para la fecha de ingreso *formato de fecha: yyyy/mm/dd*)
   const [revenueamount, onChangeRevenueAmount] = useState('');// variable for amount revenue(variable para la fecha de egreso)
   const [revenuedescription, onChangeRevenueDescription] = useState('');// variable for description revenue(variable para la descripción de ingreso)
   const [expensesdate, setExpensesDate] = useState(new Date())//variable for date expenses(variable para la descripción de engreso) 
@@ -31,8 +31,9 @@ function TransactionScreen({route, navigation}){
       secundarias,la primera vista secundaria es para el primer selector que depende de su valor muestra la segunda, el botón muestra un ticket 
       con todos los datos)*/
     return(
-        <ScrollView style={styles.scroll_container}>
-
+        <View>
+          
+          <ScrollView style={styles.scroll_container}>
           <View style={styles.header}> 
             <Ionicons name="arrow-back-outline" size={30} color={'#fff'} onPress={navigation.goBack} />
           </View>
@@ -66,7 +67,7 @@ function TransactionScreen({route, navigation}){
                     <>
                     <Text style={styles.label}>Tipo</Text>
                     <RNPickerSelect
-                      style={{ inputAndroid: { color: 'black' } }}
+                      style={{ inputAndroid: { color: 'black',} }}
                       placeholder={{
                         label: 'Tipo de venta...',
                         value: null,
@@ -151,6 +152,7 @@ function TransactionScreen({route, navigation}){
           </View>
 
         </ScrollView>
+        </View>
     );
 }
 
@@ -161,18 +163,29 @@ function ticket(companie,date, transaction, transactiontype, amount,description)
     alert("Debe completar todos los campos")
   }//validation of empty or null data(validación de datos vacios o nulos)
   else{
-    if (transaction=="venta1") {
-      if (transactiontype==null) {
-        alert("Debe completar todos los campos")
+    try {
+      if(parseFloat(amount)>0){
+        if (transaction=="venta1") {
+          if (transactiontype==null) {
+            alert("Debe completar todos los campos")
+          }
+          else{
+            alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
+            "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description)
+          }
+        }
+        else{
+          alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
+          "\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description)
+        }
       }
       else{
-        alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
-        "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+amount+"\n\nDescripción:  "+description)
+        alert('La cantidad de dinero no puede ser menor a 0')
       }
-    }
-    else{
-      alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
-      "\n\nMonto:  $"+amount+"\n\nDescripción:  "+description)
+      
+    } catch (error) {
+      console.log(error)
+      alert('Algunos datos no son correctos')     
     }
   }
 }

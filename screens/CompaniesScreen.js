@@ -22,6 +22,7 @@ const companiesList = [
 
 function CompaniesScreen({ navigation }){
     return(
+      <View>
         <ScrollView style={styles.scroll_container}>
           <View style={styles.container}>
             <ScrollView style={styles.horizontal_scroll_container} >
@@ -38,6 +39,8 @@ function CompaniesScreen({ navigation }){
             </ScrollView>
           </View>
         </ScrollView>
+      </View>
+        
     );
 }
 
