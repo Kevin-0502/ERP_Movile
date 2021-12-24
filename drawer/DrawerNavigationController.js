@@ -14,6 +14,7 @@ import CustomDrawerView from './CustomDrawerView';
 const Drawer = createDrawerNavigator();//drawer const management(Controlador para acciones tipo "Drawer") 
 
 function DrawerNavigationController() {
+
     return (
       //Drawer Navigation settings(Configuración del Dr|  awer Navigation) line:20
       //Screens ready to show(Declaración de las pantallas listas para mostrar) line:33,39 
@@ -54,13 +55,3 @@ function DrawerNavigationController() {
   }
   
   export default DrawerNavigationController;
-   
-/*
-  <Drawer.Screen name="Clientes" component={ClientNavigationController} 
-              options={{
-                drawerIcon: ({color}) => (
-                  <Ionicons name="people-circle-outline" size={22} color={color} />
-                ),
-              }}
-  />
-*/ 

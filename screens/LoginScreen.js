@@ -1,9 +1,10 @@
 //import elements(Importación de elementos básicos de react-native)
 import * as React from 'react';
-import { ScrollView ,StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity  } from 'react-native';
+import { Component } from 'react';
+import { ScrollView ,StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity, CheckBox,  } from 'react-native';
 import { useState } from 'react';
-//import icons(Importación de iconos)
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Checkbox } from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';//import icons(Importación de iconos)
 import { RFPercentage } from 'react-native-responsive-fontsize';//library to get responsive fonts(Librería para tener un tamaño responsivo en el texto)
 //users and passwords(usuarios y contraseñas)
 const usersList = [
@@ -19,12 +20,23 @@ const usersList = [
   },
 ]
 
+const getUsersApi = async () => {
+  try {
+    const response = await fetch('http://hyderp.herokuapp.com/api/users?api_key=key_cur_prod_ftPqyBiQEf7Vcb9wKwbCf65c378VGyBB');
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 //Login Screen with user's email and password(Pantalla de login con email y contraseñas de los usuarios)
-function LoginScreen({navigation}){
+function LoginScreen({navigation}) {
 
   const [user, setUser] = useState('');//Variable for get the input user(variable para capturar el input de usuario)
   const [password, setPassword] = useState('');//Variable for get the input password(variable para capturar el input de contraseña)
   const [showhide, setShowhide] = useState(true);//Variable to protect the password(variable para mostrar y esconder la contraseña)
+  const [checked, setChecked] = useState(false);
 
   return(
         <ScrollView style={styles.scroll_container}>
@@ -40,16 +52,31 @@ function LoginScreen({navigation}){
                   </TouchableOpacity>
                   <TextInput style={styles.inputTxt2} placeholder='password' onChangeText={password => setPassword(password)} defaultValue={password} secureTextEntry={showhide}/>
                 </View>  
+                <View style={styles.checkview}>
+                {/*<Checkbox
+                    status={checked ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                      setChecked(!checked);
+                    }}
+                    uncheckedColor='white'
+                  />
+                  <Text style={styles.textcheck}>Recordar usuario</Text>*/}
+                </View>
                 <Button  title='Login' color={'#F19022'} onPress={() => {
+                      getUsersApi();
                     if (authentication(user,password)) {
-                      setUser('');
                       setPassword('');
+                      if(!checked)
+                      {
+                        setUser('');
+                      }
                       navigation.navigate('Main');
                     }
                     else{
                       alert('Error algunos campos no coinciden')
                     }
                  }}/>
+                 
             </View>
         </ScrollView>
     );
@@ -82,12 +109,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       paddingBottom:'30%',
     },
-    txt:{
-      color:'#9FC73A',
-      fontSize:RFPercentage(2.1),
-      marginTop:15,
-      marginBottom:30,
-    },
     inputTxt: {
       padding: 5,
       marginTop: '30%',
@@ -108,11 +129,21 @@ const styles = StyleSheet.create({
     passwordview:{
       flexDirection: 'row',
       width:'80%',
-      marginBottom:'20%',
+      marginBottom:'8%',
       backgroundColor:'#72789A', 
       borderRadius:10,
       height:'8%',
-  },
+    },
+    checkview:{
+      marginBottom:'20%',
+      flexDirection: 'row',
+    },
+    textcheck:{
+      fontSize:RFPercentage(2),
+      color:'#FFF',
+      padding:3,
+      textAlignVertical:'center',
+    },
   });
 
 
