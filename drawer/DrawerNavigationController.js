@@ -13,9 +13,9 @@ import CustomDrawerView from './CustomDrawerView';
 
 const Drawer = createDrawerNavigator();//drawer const management(Controlador para acciones tipo "Drawer") 
 
-function DrawerNavigationController() {
+function DrawerNavigationController({route}) {
 
-    return (
+  return (    
       //Drawer Navigation settings(Configuración del Dr|  awer Navigation) line:20
       //Screens ready to show(Declaración de las pantallas listas para mostrar) line:33,39 
           <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomDrawerView {... props}/>}

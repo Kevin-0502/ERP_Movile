@@ -16,13 +16,20 @@ function CustomDrawerView( props ){
         <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerHead}>
             <View style={styles.container}>
                 <Text style={{color:'#F19022', fontWeight:'bold', fontSize: RFPercentage(4), marginLeft:20,}}>HyD <Text style={{color:'#1074E7',}}>ERP</Text></Text>
-                <Text style={styles.txt}>Usuario (Contador)</Text>
-                <Image source={require('../assets/profile.png')} style={{height:70,width:70,padding:20,margin:10,marginBottom:20,}} />
+                <Image source={require('../assets/profile.png')} style={{height:90,width:90,padding:20,margin:10,marginLeft:'30%', marginBottom:20,}} />
+                <Text style={styles.txt}>{global.Email}</Text>
             </View>
             <DrawerItemList {...props}/>
 
             <View style={styles.logout_container}>
-              <TouchableOpacity onPress={ () => navigation.navigate("Login") }>
+              <TouchableOpacity onPress={ () => {
+                navigation.navigate("Login");
+                global.Id = 0;
+                global.Email = '';
+                global.Name = '';
+                global.Lastname = '';
+                global.Phone = '';
+              } }>
                <Text style={styles.txt}><Ionicons name='log-out-outline' size={18} color={'#fff'} /> Cerrar Sesión</Text>
               </TouchableOpacity>              
             </View>
