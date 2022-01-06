@@ -18,6 +18,14 @@ const client = [
     name: 'Michael King',
     companie: 'SHH Corporation'
   },
+  {
+    name: 'Gary Mitchell',
+    companie: 'General Enterprises'
+  },
+  {
+    name: 'Ben Tennyson',
+    companie: 'Omnitrix Corporation'
+  },
 ]
 
 //View that has a List showing all data from array "client"(Vista que contiene una lista donde se muestra la info del vector "client")

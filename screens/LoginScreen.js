@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { ScrollView ,StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity, CheckBox,  } from 'react-native';
 import { useState } from 'react';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { Checkbox } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';//import icons(Importación de iconos)
 import { RFPercentage } from 'react-native-responsive-fontsize';//library to get responsive fonts(Librería para tener un tamaño responsivo en el texto)
@@ -10,46 +11,64 @@ import { RFPercentage } from 'react-native-responsive-fontsize';//library to get
 //Method to post in API and get users and passwords to authenticated(metodo para hacer post a la API y obtener usuarios y contraseñas para validarlos)
 const AuthenticateDataApi = (emaildata, passworddata) => {
 
-  var url = 'https://hyderp.herokuapp.com/api/login?api_key=key_cur_prod_ftPqyBiQEf7Vcb9wKwbCf65c378VGyBB';
+  var url = 'https://hyderp.herokuapp.com/api/login';
   var data = { email: emaildata, password: passworddata };
 
     return fetch(url, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       }
     }).then(res => {
       return res.json().then(resJson => {
+        console.log(resJson);
         let result = [];
         Object.values(resJson).forEach(i => {
           result = result.concat(i)
+          
         });
-
-        let idres = result[0].id;
-        return idres;
+        let status = result[0];
+        let token = result[1];
+        global.token = token;
+        console.log(token)
+        return status;
       });
     });
 
 }//fin get users Apis
 
-const getUserDataApi = (id) => {
-  var url = 'https://hyderp.herokuapp.com/api/users/'+id+'?api_key=key_cur_prod_ftPqyBiQEf7Vcb9wKwbCf65c378VGyBB'
-      fetch(url).then(res => {
+//Method to get users data(metodo para obtener los datos del usuarios)
+const  getUserDataApi = (email,token) => {
+  var url = 'https://hyderp.herokuapp.com/api/userdata?email='+email+'&api_key=key_cur_prod_ftPqyBiQEf7Vcb9wKwbCf65c378VGyBB'
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      }).then(res => {
           res.json().then(resJson => {
-            let result = [];
+           let result = [];
             Object.values(resJson).forEach(i => {
               result = result.concat(i)
             });
-    
-            global.Id = result[0].id;
-            global.Email = result[0].email;
-            global.Name = result[0].name;
-            global.Lastname = result[0].last_name;
-            global.Phone = result[0].phone_number;
+
+            console.log(result[0]);
+            
+            let id = result[0].id;
+            let name = result[0].name;
+            let lastname = result[0].last_name;
+            
+            global.id = id;
+            global.name = name;
+            global.lastname = lastname;
+            global.email = email;
+
           });
         });
-}
+}//fin get users data Apis
+
 
 
 //Login Screen with user's email and password(Pantalla de login con email y contraseñas de los usuarios)
@@ -59,10 +78,26 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState('');//Variable for get the input password(variable para capturar el input de contraseña)
   const [showhide, setShowhide] = useState(true);//Variable to protect the password(variable para mostrar y esconder la contraseña)
   const [checked, setChecked] = useState(false);//variable for checkbox to remember user email(variable para checkbox para recordar correo de usuario)
+  const [loading, setLoading] = useState(false);//variable for loading spinner(variable para el spinner de loading)
+
+  const startLoading = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  };//constante para iniciar el spinner y mostar la carga de los datos
 
   return(
         <ScrollView style={styles.scroll_container}>
-            <View style={styles.container}>                
+            <View style={styles.container}>  
+                <Spinner
+                  //visibility of Overlay Loading Spinner
+                  visible={loading}
+                  //Text with the Spinner
+                  textContent={'Loading...'}
+                  //Text style of the Spinner Text
+                  textStyle={{color:'#FFFFFF',}}
+                />              
                 <Image source={require('../assets/logo.png')} style={{borderRadius:15,height: 130, width: 280, margin:10,}} />
                 <View style={{width:'80%',}}>
                   <TextInput style={styles.inputTxt} placeholder='example@gmail.com' onChangeText={user => setUser(user)} defaultValue={user} />
@@ -74,7 +109,8 @@ const LoginScreen = ({navigation}) => {
                   </TouchableOpacity>
                   <TextInput style={styles.inputTxt2} placeholder='password' onChangeText={password => setPassword(password)} defaultValue={password} secureTextEntry={showhide}/>
                 </View>  
-                {/*<View style={styles.checkview}>
+                {/*---Checkbox draft---
+                <View style={styles.checkview}>
                 <Checkbox
                     status={checked ? 'checked' : 'unchecked'}
                     onPress={() => {
@@ -86,19 +122,20 @@ const LoginScreen = ({navigation}) => {
                   //CheckBox Draft
                 </View>*/}
                 <Button  title='Login' color={'#F19022'} onPress={() => {
+                  startLoading();
                   AuthenticateDataApi(user,password).then((res) => {
-                    console.log(res)
-                    if (res > 0) {
+                    console.log(res)                  
+                    if (res == 200) {
+                      getUserDataApi(user,global.token);
                       navigation.navigate('Main',{iduser: res});
-                      getUserDataApi(res);
                       setUser('');
-                      setPassword('');   
+                      setPassword('');
                     }
                     else{
                       alert('Algunos campos no coinciden')
-                    }    
+                    }
                   })
-                 }}/>
+                }}/>
             </View>
         </ScrollView>
     );

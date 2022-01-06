@@ -4,12 +4,10 @@ import { ScrollView ,StyleSheet, Text, View, Button } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
 
-function HomeScreen ({route, navigation}) {
-
+function HomeScreen ({navigation}) {
         return(
                 <View style={styles.container}>   
-                    <Text style={styles.txt}>{'Bienvenido '+global.Name + global.Lastname} </Text>             
-                    
+                    <Text style={styles.txt}>{'Bienvenido '+global.name +' '+ global.lastname} </Text> 
                 </View>
         );
 }

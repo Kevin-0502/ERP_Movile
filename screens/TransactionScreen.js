@@ -50,7 +50,7 @@ function TransactionScreen({route, navigation}){
                   }}
                   onValueChange={(revenue) => {
                     setRevenue(revenue)
-                    if (revenue == "venta1") {
+                    if (revenue == "Ventas de la empresa") {
                       setShouldShow(true)
                     }
                     else{
@@ -58,9 +58,10 @@ function TransactionScreen({route, navigation}){
                     }
                   }}
                   items={[
-                      { label: 'Venta 1', value: 'venta1',},
-                      { label: 'Venta 2', value: 'venta2',},
-                      { label: 'Venta 3', value: 'venta3',},
+                      { label: 'Ventas de la empresa', value: 'Ventas de la empresa',},
+                      { label: 'Prestación de servicios', value: 'Prestación de servicios',},
+                      { label: 'Comisiones recibidas', value: 'Comisiones recibidas',},
+                      { label: 'Ingresos por arrendamientos', value: 'Ingresos por arrendamientos',},
                   ]}
                   />
                   {shouldShow ? (
@@ -69,14 +70,13 @@ function TransactionScreen({route, navigation}){
                     <RNPickerSelect
                       style={{ inputAndroid: { color: 'black',} }}
                       placeholder={{
-                        label: 'Tipo de venta...',
+                        label: 'Detalle de ingreso ...',
                         value: null,
                       }}
                       onValueChange={(revenuetype) => setRevenuetype(revenuetype)}
                       items={[
-                        { label: 'Venta 1', value: 'venta1' },
-                        { label: 'Venta 2', value: 'venta2' },
-                        { label: 'Venta 3', value: 'venta3' },
+                        { label: 'Venta de mercaderías', value: 'Venta de mercaderías' },
+                        { label: 'Venta de mercaderías', value: 'Venta de mercaderías' },
                       ]} 
                   />
                   </>
@@ -171,12 +171,13 @@ function ticket(companie,date, transaction, transactiontype, amount,description)
           }
           else{
             alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
-            "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description)
+            "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.Name+' '+global.Lastname);
+            
           }
         }
         else{
           alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
-          "\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description)
+          "\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.Name+' '+global.Lastname);
         }
       }
       else{
