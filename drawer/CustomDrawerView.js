@@ -24,8 +24,6 @@ function CustomDrawerView( props ){
             <View style={styles.logout_container}>
               <TouchableOpacity onPress={ () => {
                 navigation.navigate("Login");
-                global.name = "";
-                global.lastname = "";
               } }>
                <Text style={styles.txt}><Ionicons name='log-out-outline' size={18} color={'#fff'} /> Cerrar Sesión</Text>
               </TouchableOpacity>              

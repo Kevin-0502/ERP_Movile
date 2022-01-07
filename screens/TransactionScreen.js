@@ -50,7 +50,7 @@ function TransactionScreen({route, navigation}){
                   }}
                   onValueChange={(revenue) => {
                     setRevenue(revenue)
-                    if (revenue == "Ventas de la empresa") {
+                    if (revenue == "venta2") {
                       setShouldShow(true)
                     }
                     else{
@@ -58,10 +58,9 @@ function TransactionScreen({route, navigation}){
                     }
                   }}
                   items={[
-                      { label: 'Ventas de la empresa', value: 'Ventas de la empresa',},
-                      { label: 'Prestación de servicios', value: 'Prestación de servicios',},
-                      { label: 'Comisiones recibidas', value: 'Comisiones recibidas',},
-                      { label: 'Ingresos por arrendamientos', value: 'Ingresos por arrendamientos',},
+                      { label: 'Ingresos operativos', value: 'venta1',},
+                      { label: 'Ingresos financieros', value: 'venta2',},
+                      { label: 'Ingresos extraordinarios', value: 'venta3',},
                   ]}
                   />
                   {shouldShow ? (
@@ -76,7 +75,7 @@ function TransactionScreen({route, navigation}){
                       onValueChange={(revenuetype) => setRevenuetype(revenuetype)}
                       items={[
                         { label: 'Venta de mercaderías', value: 'Venta de mercaderías' },
-                        { label: 'Venta de mercaderías', value: 'Venta de mercaderías' },
+                        { label: 'Venta de servicio', value: 'Venta de servicio' },
                       ]} 
                   />
                   </>
@@ -165,19 +164,19 @@ function ticket(companie,date, transaction, transactiontype, amount,description)
   else{
     try {
       if(parseFloat(amount)>0){
-        if (transaction=="venta1") {
+        if (transaction=="venta2") {
           if (transactiontype==null) {
             alert("Debe completar todos los campos")
           }
           else{
             alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
-            "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.Name+' '+global.Lastname);
+            "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.email);
             
           }
         }
         else{
           alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
-          "\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.Name+' '+global.Lastname);
+          "\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.email);
         }
       }
       else{

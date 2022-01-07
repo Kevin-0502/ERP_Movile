@@ -31,45 +31,12 @@ const AuthenticateDataApi = (emaildata, passworddata) => {
         let status = result[0];
         let token = result[1];
         global.token = token;
+        global.email = emaildata;
         console.log(token)
         return status;
       });
     });
-
 }//fin get users Apis
-
-//Method to get users data(metodo para obtener los datos del usuarios)
-const  getUserDataApi = (email,token) => {
-  var url = 'https://hyderp.herokuapp.com/api/userdata?email='+email+'&api_key=key_cur_prod_ftPqyBiQEf7Vcb9wKwbCf65c378VGyBB'
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        }
-      }).then(res => {
-          res.json().then(resJson => {
-           let result = [];
-            Object.values(resJson).forEach(i => {
-              result = result.concat(i)
-            });
-
-            console.log(result[0]);
-            
-            let id = result[0].id;
-            let name = result[0].name;
-            let lastname = result[0].last_name;
-            
-            global.id = id;
-            global.name = name;
-            global.lastname = lastname;
-            global.email = email;
-
-          });
-        });
-}//fin get users data Apis
-
-
 
 //Login Screen with user's email and password(Pantalla de login con email y contraseñas de los usuarios)
 const LoginScreen = ({navigation}) => {
@@ -84,7 +51,7 @@ const LoginScreen = ({navigation}) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 3000);
   };//constante para iniciar el spinner y mostar la carga de los datos
 
   return(
@@ -109,24 +76,11 @@ const LoginScreen = ({navigation}) => {
                   </TouchableOpacity>
                   <TextInput style={styles.inputTxt2} placeholder='password' onChangeText={password => setPassword(password)} defaultValue={password} secureTextEntry={showhide}/>
                 </View>  
-                {/*---Checkbox draft---
-                <View style={styles.checkview}>
-                <Checkbox
-                    status={checked ? 'checked' : 'unchecked'}
-                    onPress={() => {
-                      setChecked(!checked);
-                    }}
-                    uncheckedColor='white'
-                  />
-                  <Text style={styles.textcheck}>Recordar usuario</Text>
-                  //CheckBox Draft
-                </View>*/}
                 <Button  title='Login' color={'#F19022'} onPress={() => {
                   startLoading();
                   AuthenticateDataApi(user,password).then((res) => {
                     console.log(res)                  
                     if (res == 200) {
-                      getUserDataApi(user,global.token);
                       navigation.navigate('Main',{iduser: res});
                       setUser('');
                       setPassword('');
