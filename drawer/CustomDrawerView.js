@@ -23,6 +23,7 @@ function CustomDrawerView( props ){
 
             <View style={styles.logout_container}>
               <TouchableOpacity onPress={ () => {
+                logout(global.email);
                 navigation.navigate("Login");
               } }>
                <Text style={styles.txt}><Ionicons name='log-out-outline' size={18} color={'#fff'} /> Cerrar Sesión</Text>
@@ -32,6 +33,29 @@ function CustomDrawerView( props ){
     );
 }
 
+const logout = (emaildata) => {
+
+  var url = 'https://hyderp.herokuapp.com/api/logout';
+  var data = { email: emaildata};
+
+    return fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(res => {
+      return res.json().then(resJson => {
+        console.log(resJson);
+        let result = [];
+        Object.values(resJson).forEach(i => {
+          result = result.concat(i)
+          
+        });
+        console.log(result[1]);
+      });
+    });
+}//fin get users Apis
 
 const styles = StyleSheet.create({
     container: {

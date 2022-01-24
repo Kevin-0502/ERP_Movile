@@ -59,7 +59,7 @@ function TransactionScreen({route, navigation}){
                   }}
                   items={[
                       { label: 'Ingresos operativos', value: 'venta1',},
-                      { label: 'Ingresos financieros', value: 'venta2',},
+                      { label: 'Ingresos financieros', value: 'Ingresos financieros',},
                       { label: 'Ingresos extraordinarios', value: 'venta3',},
                   ]}
                   />
@@ -88,7 +88,7 @@ function TransactionScreen({route, navigation}){
               <Text style={styles.label} >Descripción</Text>
               <TextInput style={styles.inputTxt} multiline={true} onChangeText={revenuedescription => onChangeRevenueDescription(revenuedescription)} value={revenuedescription}/>
               <View style={styles.btn}><Button title="Guardar datos" onPress={()=>{
-                ticket(companie, revenuedate, revenue, revenuetype, revenueamount, revenuedescription);
+                ticket(companie, revenuedate, revenue, revenuetype, revenueamount, revenuedescription,1);
               }}/></View>
           </View>
 
@@ -146,7 +146,7 @@ function TransactionScreen({route, navigation}){
               <Text style={styles.label} >Descripción</Text>
               <TextInput style={styles.inputTxt} multiline={true} onChangeText={expensesdescription => onChangeExpensesDescription(expensesdescription)} value={expensesdescription}/>
               <View style={styles.btn}><Button title="Guardar datos" onPress={()=>{
-                ticket(companie,expensesdate, expenses, expensestype, expensesamount, expensesdescription);
+                ticket(companie,expensesdate, expenses, expensestype, expensesamount, expensesdescription,2);
               }}/></View>
           </View>
 
@@ -156,7 +156,7 @@ function TransactionScreen({route, navigation}){
 }
 
 //this function has all the validations and the structure of the ticket(Esta función tiene las validaciones y las estructuras del ticket)
-function ticket(companie,date, transaction, transactiontype, amount,description) {
+function ticket(companie,date, transaction, transactiontype, amount,description,operation) {
 
   if (date==""||transaction==null||amount==""||description=="") {
     alert("Debe completar todos los campos")
@@ -164,20 +164,45 @@ function ticket(companie,date, transaction, transactiontype, amount,description)
   else{
     try {
       if(parseFloat(amount)>0){
-        if (transaction=="venta2") {
-          if (transactiontype==null) {
-            alert("Debe completar todos los campos")
+
+        if (operation==1){
+          if (transaction=="Ingresos financieros") {
+            if (transactiontype==null) {
+              alert("Debe completar todos los campos")
+            }
+            else{
+              alert(companie+"\n\n\n" +"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
+              "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.email);
+              
+            }
           }
           else{
             alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
-            "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.email);
-            
+            "\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.email);
           }
         }
-        else{
-          alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
-          "\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.email);
+
+
+        if (operation==2) {
+          if (transaction=="venta1") {
+            if (transactiontype==null) {
+              alert("Debe completar todos los campos")
+            }
+            else{
+              alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
+              "\n\nTipo de transaccion  "+transactiontype+"\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.email);
+              
+            }
+          }
+          else{
+            alert(companie+"\n\n\n"+"Fecha de transacción:  "+date+"\n\nTransacción:  "+transaction+
+            "\n\nMonto:  $"+parseFloat(amount)+"\n\nDescripción:  "+description+"\n\nHecho por: "+global.email);
+          }
         }
+        
+
+
+
       }
       else{
         alert('La cantidad de dinero no puede ser menor a 0')
